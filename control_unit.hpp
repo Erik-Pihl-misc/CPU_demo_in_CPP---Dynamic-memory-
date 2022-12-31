@@ -257,11 +257,11 @@ struct cpu::control_unit
             }
             else if (op_code == STS)
             {
-               data_mem.write(op1, reg[op2]);
+               data_mem.write(static_cast<std::size_t>(op1), reg[op2]);
 
                if (op2 < NUM_REGISTERS)
                {
-                  data_mem.write(op1 + 1, reg[static_cast<std::uint8_t>(op2 + 1)]);
+                  data_mem.write(static_cast<std::size_t>(op1) + 1, reg[static_cast<std::uint8_t>(op2 + 1)]);
                }
             }
             else if (op_code == LDS)
@@ -270,7 +270,7 @@ struct cpu::control_unit
 
                if (op1 < NUM_REGISTERS)
                {
-                  reg[static_cast<std::uint8_t>(op1 + 1)] = data_mem.read(op2 + 1);
+                  reg[static_cast<std::uint8_t>(op1 + 1)] = data_mem.read(static_cast<std::size_t>(op2 + 1));
                }
             }
             else if (op_code == ORI || op_code == ANDI || op_code == XORI)

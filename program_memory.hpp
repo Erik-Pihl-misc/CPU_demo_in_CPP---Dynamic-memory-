@@ -5,34 +5,33 @@
 
 struct cpu::program_memory
 {
-   static constexpr std::uint16_t ADDRESS_WIDTH = 32000;
-   static constexpr std::uint8_t LED1 = 0;
-   static constexpr std::uint8_t BUTTON1 = 5;
-   static constexpr std::uint8_t led_enabled = 100; 
+   static constexpr auto LED1 = 0;
+   static constexpr auto BUTTON1 = 5;
+   static constexpr auto led_enabled = 100; 
 
    static constexpr auto RESET_vect = 0x00;
    static constexpr auto PCINT0_vect = 0x02;
    static constexpr auto ISR_vect_end = PCINT0_vect + 2;
 
-   static constexpr std::uint8_t ISR_PCINT0 = ISR_vect_end;
-   static constexpr std::uint8_t ISR_PCINT0_end = ISR_PCINT0 + 4;
+   static constexpr auto ISR_PCINT0 = ISR_vect_end;
+   static constexpr auto ISR_PCINT0_end = ISR_PCINT0 + 4;
 
    static constexpr auto ISR_end = ISR_PCINT0 + 5;
 
-   static constexpr std::uint8_t main = ISR_end;
-   static constexpr std::uint8_t main_loop = main + 1;
-   static constexpr std::uint8_t led_toggle = main_loop + 1;
-   static constexpr std::uint8_t led_toggle_end = led_toggle + 4;
-   static constexpr std::uint8_t led_on = led_toggle + 5;
-   static constexpr std::uint8_t led_off = led_on + 6;
+   static constexpr auto main = ISR_end;
+   static constexpr auto main_loop = main + 1;
+   static constexpr auto led_toggle = main_loop + 1;
+   static constexpr auto led_toggle_end = led_toggle + 4;
+   static constexpr auto led_on = led_toggle + 5;
+   static constexpr auto led_off = led_on + 6;
 
-   static constexpr std::uint8_t setup = led_off + 6;
-   static constexpr std::uint8_t init_ports = setup;
-   static constexpr std::uint8_t init_interrupts = init_ports + 4;
-   static constexpr std::uint8_t init_globals = init_interrupts + 5;
+   static constexpr auto setup = led_off + 6;
+   static constexpr auto init_ports = setup;
+   static constexpr auto init_interrupts = init_ports + 4;
+   static constexpr auto init_globals = init_interrupts + 5;
 
-   static constexpr std::uint8_t button_is_pressed = init_globals + 3;
-   static constexpr std::uint8_t end = button_is_pressed + 3;
+   static constexpr auto button_is_pressed = init_globals + 3;
+   static constexpr auto end = button_is_pressed + 3;
 
    static std::uint32_t assemble(const std::uint8_t op_code,
                                  const std::uint8_t op1 = 0x00,
@@ -115,9 +114,14 @@ struct cpu::program_memory
 
    program_memory(void) { }
 
+   std::size_t address_width(void) const
+   {
+      return data.size();
+   }
+
    std::uint32_t read(const std::uint32_t address)
    {
-      if (address < ADDRESS_WIDTH)
+      if (address < address_width())
       {
          return data[address];
       }

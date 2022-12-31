@@ -1,4 +1,4 @@
-# CPU-demo-in-CPP
+# CPU demo in CPP - Dynamic memory
 Demonstrates how an 8-bit CPU works in a terminal environment. 
 Based on microcontroller ATmega328P, but using dynamic memory, so that size of the memory segments can be set as needed.
 The instruction set constitutes of a subset of the Atmel AVR instruction set.

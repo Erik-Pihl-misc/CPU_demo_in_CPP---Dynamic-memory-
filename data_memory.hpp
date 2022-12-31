@@ -36,7 +36,8 @@ struct cpu::data_memory
       return;
    }
 
-   int write(const std::uint16_t address, const T& new_element)
+   int write(const std::size_t address, 
+             const T& new_element)
    {
       if (address < address_width())
       {
@@ -49,7 +50,7 @@ struct cpu::data_memory
       }
    }
 
-   T read(const std::uint16_t address) const
+   T read(const std::size_t address) const
    {
       if (address < address_width())
       {

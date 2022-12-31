@@ -171,10 +171,10 @@ namespace cpu
    struct control_unit;
    struct program_memory;
 
-   template<class T>
+   template<class T = std::uint8_t>
    struct data_memory;
 
-   template<class T>
+   template<class T = std::uint8_t>
    struct stack;
 }
 

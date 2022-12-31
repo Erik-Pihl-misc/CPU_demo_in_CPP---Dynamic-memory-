@@ -3,7 +3,7 @@
 
 #include "cpu.hpp"
 
-template<class T = std::uint8_t>
+template<class T>
 struct cpu::stack
 {
    std::vector<T> data;
