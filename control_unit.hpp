@@ -32,6 +32,7 @@ struct cpu::control_unit
    std::uint8_t op2 = 0x00;
 
    state current_state = state::fetch;
+   std::uint8_t last_input = 0x00;
 
    control_unit(void) 
    {
@@ -54,6 +55,7 @@ struct cpu::control_unit
       op2 = 0x00;
 
       current_state = state::fetch;
+      last_input = 0x00;
 
       for (auto& i : reg)
       {
@@ -145,7 +147,6 @@ struct cpu::control_unit
 
    void monitor_interrupts(void)
    {
-      static std::uint8_t last_input = 0x00;
       const auto current_input = data_mem.read(PINB);
 
       if (interrupt_enabled())
@@ -456,12 +457,12 @@ struct cpu::control_unit
 
          if (current_state == state::execute)
          {
-            this->run_next_state();
+            run_next_state();
          }
 
          while (current_state != state::execute)
          {
-            this->run_next_state();
+            run_next_state();
          }
       }
       if (selection == 2)
